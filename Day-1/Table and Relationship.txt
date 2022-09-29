@@ -1,0 +1,55 @@
+mysql> use courseMonitor;
+
+
+create table Admin
+(
+username varchar(25) primary key,
+password varchar(12) not null
+);
+
+
+create table Faculty
+(
+faculty_Id int primary key,
+faculty_name varchar(25) not null,
+faculty__address varchar(25) not null,
+mobile varchar(10) not null,
+eamil varchar(25) not null,
+username varchar(15) unique not null,
+password varchar(15) not null
+);
+
+
+
+create table Course
+(
+course_Id int primary key,
+course_Name varchar(25) unique not null,
+fee int not null,
+course_Description varchar(50) not null
+);
+
+
+
+create table Batch
+(
+batch_Id int primary key,
+course_Id int not null,
+faculty_Id int not null,
+number_Of_Students int,
+batch_Start_Date date not null,
+duration varchar(15),
+foreign key(course_Id) references Course(course_Id),
+foreign key(faculty_Id) references Faculty(faculty_Id)
+);
+
+
+create table coursePlan
+(
+plan_Id int primary key,
+batch_Id int not null,
+day_Number int not null,
+topic varchar(25),
+status varchar(15),
+foreign key (batch_Id) references Batch(batch_Id)
+);
