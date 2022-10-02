@@ -1,55 +1,60 @@
 mysql> use courseMonitor;
 
-
-create table Admin
+Admin Table
+=============
+create table admin
 (
-username varchar(25) primary key,
-password varchar(12) not null
+id int PRIMARY KEY AUTO_INCREMENT,
+username varchar(255) NOT NULL UNIQUE,
+password varchar(255) NOT NULL
 );
 
-
-create table Faculty
+Faculty Table
+==============
+create table faculty
 (
-faculty_Id int primary key,
-faculty_name varchar(25) not null,
-faculty__address varchar(25) not null,
-mobile varchar(10) not null,
-eamil varchar(25) not null,
-username varchar(15) unique not null,
-password varchar(15) not null
+facultyId int PRIMARY KEY AUTO_INCREMENT,
+facultyName varchar(255),
+facultyAddress varchar(255),
+mobile varchar(10),
+email varchar(255),
+username varchar(255) NOT NULL UNIQUE,
+password varchar(255) NOT NULL
 );
 
-
-
-create table Course
+Course Table
+===============
+create table course
 (
-course_Id int primary key,
-course_Name varchar(25) unique not null,
-fee int not null,
-course_Description varchar(50) not null
+courseId int PRIMARY KEY AUTO_INCREMENT,
+courseName varchar(255) UNIQUE,
+fee int,
+courseDescription text
 );
 
-
-
-create table Batch
+Batch Table
+==============
+create table batch
 (
-batch_Id int primary key,
-course_Id int not null,
-faculty_Id int not null,
-number_Of_Students int,
-batch_Start_Date date not null,
-duration varchar(15),
-foreign key(course_Id) references Course(course_Id),
-foreign key(faculty_Id) references Faculty(faculty_Id)
+batchId int PRIMARY KEY AUTO_INCREMENT,
+batchName varchar(255) UNIQUE NOT NULL,
+courseId int NOT NULL,
+facultyId int NOT NULL,
+numberOfStudents int,
+batchStartDate date,
+duration varchar(255),
+foreign key(courseId) references course(courseId) ON DELETE CASCADE,
+foreign key(facultyId) references faculty(facultyId) ON DELETE CASCADE
 );
 
-
+CoursePlan Table
+==================
 create table coursePlan
 (
-plan_Id int primary key,
-batch_Id int not null,
-day_Number int not null,
-topic varchar(25),
-status varchar(15),
-foreign key (batch_Id) references Batch(batch_Id)
+planId int PRIMARY KEY AUTO_INCREMENT,
+batchId int NOT NULL,
+dayNumber int,
+topic varchar(255),
+status varchar(255),
+foreign key(batchId) references batch(batchId) ON DELETE CASCADE
 );
